@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        total = 0
-        updateText(viewModel.total)
-        findViewById<Button>(R.id.button_increment).setOnClickListener{
-            val newTotal = viewModel.incrementTotal()
-            updateText(newTotal)
-        }
+//        total = 0
+//        updateText(viewModel.total)
+//        findViewById<Button>(R.id.button_increment).setOnClickListener{
+//            val newTotal = viewModel.incrementTotal()
+//            updateText(newTotal)
+//        }
         prepareViewModel()
     }
 
@@ -46,10 +46,18 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.text_total, total)
     }
 
+//    private fun prepareViewModel(){
+//        findViewById<Button>(R.id.button_increment).setOnClickListener{
+//            val newTotal = viewModel.incrementTotal()
+//            updateText(newTotal)
+//        }
+//    }
     private fun prepareViewModel(){
-        findViewById<Button>(R.id.button_increment).setOnClickListener{
-            val newTotal = viewModel.incrementTotal()
-            updateText(newTotal)
-        }
+        viewModel.total.observe(this, {
+            updateText(it)
+        })
+    findViewById<Button>(R.id.button_increment).setOnClickListener{
+        viewModel.incrementTotal()
+    }
     }
 }
